@@ -16,25 +16,47 @@ int main(){
                 cin >> board[i][j];
             }
         }
+
         bool found = false;
-        for(int i = 2; i < 8; i++){
+        for(int i = 0; i < 8; i++){
             for(int j = 0; j < 8; j++){
-                if(i == 0 && j > 0){
-                    if(board[i][j+1] == '#' && board[i][j-1] == '#'){
-                        cout << i+1 << ' ' << j+1 << endl;
+                if(i == 0 && j == 0 || i == 7 && j == 0 || i == 7 && j == 7 || i == 0 && j == 7)
+                    continue;
+                
+                if(board[i][j] == '#'){
+                    if(i == 0){
+                        if(board[i+1][j+1] == '#' && board[i+1][j-1] == '#'){
+                            found = true;
+                            cout << ++i << ' ' << ++j << endl;
+                            break;
+                        }
+                    }
+                    if(j == 0){
+                        if(board[i+1][j+1] == '#' && board[i-1][j+1] == '#'){
+                            found = true;
+                            cout << ++i << ' ' << ++j << endl;
+                            break;
+                        }
+                    }
+                    if(i == 7){
+                        if(board[i-1][j+1] == '#' && board[i-1][j-1] == '#'){
+                            found = true;
+                            cout << ++i << ' ' << ++j << endl;
+                            break;
+                        }
+                    }
+                    if(j == 7){
+                        if(board[i+1][j-1] == '#' && board[i-1][j-1] == '#'){
+                            found = true;
+                            cout << ++i << ' ' << ++j << endl;
+                            break;
+                        }
+                    }
+                    if(board[i+1][j+1] == '#' && board[i-1][j+1] == '#' && board[i+1][j-1] == '#' && board[i-1][j-1] == '#'){
                         found = true;
+                        cout << ++i << ' ' << ++j << endl;
                         break;
                     }
-                }
-                else if(i > 0 && j == 0){
-                    if(board[i+1][j] == '#' && board[i-1][j] == '#'){
-                        cout << i+1 << ' ' << j+1 << endl;
-                        found = true;
-                        break;
-                    }
-                }
-                else if(i > 0 && j > 0){
-                    if(board[i])
                 }
             }
             if(found) break;

@@ -12,44 +12,21 @@ int main(){
     while(t--){
         cin >> n;
         ll ans=0;
-        vector<pair<pii, ll>> monsters(n);
-        vector<pair<pii, ll>> backup(n);
-        vector<bool> removidos(n, false);
+        int a, b, maior = INT_MIN;
         
         for(int i = 0; i <n; i++){
-            cin >> monsters[i].first.second;
-            monsters[i].second = i;
-            backup[i].first.second = monsters[i].first.second;
-            backup[i].second = i;
+            cin >> a;
+            ans+=a;
         }
         for(int i = 0; i<n; i++){
-            cin >> monsters[i].first.first;
-            backup[i].first.first = monsters[i].first.first;
+            cin >> b;
+            ans+=b;
+
+            maior = max(maior, b);
         }
 
-        sort(monsters.begin(), monsters.end());
-
-        for(int i = 0; i < n; i++){
-            ll j = monsters[i].second;
-            ans+=backup[j].first.second;
-            removidos[j] = true;
-            ll proximo = j+1;
-            ll anterior = j-1;
-            if(proximo<n){
-                while(removidos[proximo]) proximo++;
-
-                if(proximo<n){
-                    backup[proximo].first.second+=monsters[i].first.first;
-                }
-            }
-            if(anterior>=0){
-                while(removidos[anterior]) anterior--;
-
-                if(anterior>=0){
-                    backup[anterior].first.second+=monsters[i].first.first;
-                }
-            }
-        }
+        ans -= maior; 
+        
         cout << ans << endl;
     }
 }
